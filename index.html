@@ -77,6 +77,13 @@
             padding-bottom: 0.5rem;
         }
 
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #e2e8f0;
+        }
+
         p {
             margin-bottom: 1.25rem;
             color: #cbd5e1;
@@ -137,7 +144,7 @@
             font-weight: 700;
         }
 
-        /* Image Grid for Comparison */
+        /* Image Grid for Comparison Cards */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -201,20 +208,6 @@
             border: 1px solid rgba(74, 222, 128, 0.4);
         }
 
-        .callout {
-            background-color: rgba(56, 189, 248, 0.05);
-            border-left: 4px solid var(--accent-color);
-            padding: 1.25rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
-
-        .callout-title {
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-        }
-
         footer {
             margin-top: 4rem;
             padding-top: 2rem;
@@ -247,7 +240,7 @@
             <span class="tag">Quantitative Finance & Wave Mechanics</span>
             <h1>Molding Simple Harmonic Oscillators: Why 3 Components Hit the Extrapolation Goldilocks Zone</h1>
             <div class="meta">
-                <span>By Quant Research</span> • <span>75:25 Chronological Out-of-Sample Benchmark</span>
+                <span>By Angshu Nirmegh Biswas</span> • <span>Published on August 19, 2026 at 03:58 UTC</span>
             </div>
         </header>
 
@@ -277,8 +270,35 @@
                 <li><strong>Vertical Offset (<i>C</i>):</strong> Re-centers the combined wave envelope along the detrended baseline.</li>
             </ul>
 
+            <!-- SECTION 1: RESEARCH METHODOLOGY -->
+            <h2>Research Methodology</h2>
+            <p>To evaluate the multi-year extrapolation properties of harmonic oscillators without empirical contamination, we established a strict six-step quantitative research design. The methodology strictly enforces zero data leakage between training calibration and testing extrapolation horizons.</p>
+
+            <figure>
+                <img src="methodology_flowchart.png" alt="Research Methodology Flowchart">
+                <figcaption><strong>Figure 1: Research Methodology Architecture.</strong> Systematic 6-step framework for model calibration, extrapolation, benchmarking, and champion model identification.</figcaption>
+            </figure>
+
+            <!-- SECTION 2: DATA PROCESSING PIPELINE -->
+            <h2>Data Processing & Transformation Pipeline</h2>
+            <p>To prepare financial time series for harmonic wave decomposition, raw market prices undergo systematic log variance normalization and detrending using core scientific Python libraries:</p>
+
+            <ul>
+                <li><strong>Data Ingestion (<code>yfinance</code> & <code>pandas</code>):</strong> Historical daily adjusted closing prices for the S&P 500 index (<code>^GSPC</code>) were ingested via <code>yfinance.download()</code> and cleaned into a continuous time-indexed <code>pandas.DataFrame</code>.</li>
+                <li><strong>Log Variance Normalization (<code>numpy</code>):</strong> Raw market index prices exhibit exponential long-term secular growth. Using <code>np.log()</code>, prices were transformed to log space to linearize compound growth trajectories.</li>
+                <li><strong>1D Linear Detrending (<code>np.polyfit</code>):</strong> A linear polynomial trend line \(T(t)\) was fitted exclusively on training data to isolate stationary cyclical residuals \(R(t) = P_{\text{log}}(t) - T(t)\).</li>
+                <li><strong>Harmonic Wave Fitting (<code>scipy</code>):</strong> Non-linear least squares regression (<code>scipy.optimize.curve_fit</code>) optimized joint parameters \((A_i, \omega_i, \phi_i, C)\) for \(N = 2, 3, 4, 5\) components on training residuals.</li>
+                <li><strong>Exponential Price Re-trending (<code>numpy</code>):</strong> Optimized wave predictions were projected forward into the test period, re-combined with the trend line, and exponentiated back to dollar values: \(\hat{P}(t) = \exp(T(t) + \hat{R}(t))\).</li>
+                <li><strong>Statistical Metric Computation (<code>scikit-learn</code>):</strong> Out-of-sample accuracy was evaluated against ground-truth market prices using Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Coefficient of Determination (\(R^2\)).</li>
+            </ul>
+
+            <figure>
+                <img src="data_pipeline_flowchart.png" alt="Data Pipeline Flowchart">
+                <figcaption><strong>Figure 2: Data Processing Pipeline.</strong> End-to-end data transformation pipeline from raw index ingestion through exponential re-trending to evaluation metrics.</figcaption>
+            </figure>
+
             <h2>Empirical Benchmarking: <i>N</i> = 2 to <i>N</i> = 5 Components</h2>
-            <p>All models were trained on 75% of historical S&P 500 data (log-linear detrended) and tested on the remaining 25% chronological split (Scenario B: pure multi-year extrapolation with zero look-ahead bias).</p>
+            <p>All models were trained on 75% of historical S&P 500 data (log-linear detrended) and tested on the remaining 25% chronological split (pure multi-year extrapolation with zero look-ahead bias).</p>
 
             <div class="table-container">
                 <table>
@@ -339,7 +359,7 @@
 
             <figure class="winner-card">
                 <img src="method1_curve_fit_results.png" alt="S&P 500 Forecast - 3 Component Harmonic Model">
-                <figcaption><span class="winner-tag">Figure 1: Optimal 3-Component Forecast.</span> Achieves an outstanding Test R² of 0.9141 and Test MAE of $311.80 across a multi-year extrapolation window.</figcaption>
+                <figcaption><span class="winner-tag">Figure 3: Optimal 3-Component Forecast.</span> Achieves an outstanding Test R² of 0.9141 and Test MAE of $311.80 across a multi-year extrapolation window.</figcaption>
             </figure>
 
             <h2>Deconstructing the Performance Breakdown</h2>
@@ -376,7 +396,7 @@
         </main>
 
         <footer>
-            <p>&copy; 2026 Quantitative Wave Mechanics Research. Published via GitHub Pages.</p>
+            <p>&copy; 2026 Quantitative Wave Mechanics Research by Angshu Nirmegh Biswas. Published via GitHub Pages.</p>
         </footer>
     </div>
 
