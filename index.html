@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harmonic Oscillations in Financial Time Series: The 3-Component Sweet Spot</title>
     <!-- MathJax for rendering display block equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
@@ -75,13 +76,6 @@
             color: var(--accent-color);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             padding-bottom: 0.5rem;
-        }
-
-        h3 {
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #e2e8f0;
         }
 
         p {
@@ -254,9 +248,7 @@
             <span class="tag">Quantitative Finance & Wave Mechanics</span>
             <h1>Molding Simple Harmonic Oscillators: Why 3 Components Hit the Extrapolation Goldilocks Zone</h1>
             <div class="meta">
-               <div class="meta">
-                    <span>By Angshu Nirmegh Biswas</span> • <span>Published on August 19, 2026 at 03:58 UTC</span>
-               </div>
+                <span>By Quant Research</span> • <span>75:25 Chronological Out-of-Sample Benchmark</span>
             </div>
         </header>
 
@@ -284,22 +276,6 @@
                 <li><strong>Angular Frequency (<i>&omega;<sub>i</sub></i>):</strong> Controls the cycle period (<i>T</i> = 2&pi; / &omega;). Lower frequencies capture long-term macroeconomic regimes; higher frequencies capture shorter-term oscillations.</li>
                 <li><strong>Phase Shift (<i>&phi;<sub>i</sub></i>):</strong> Horizontally shifts the wave to align peaks and troughs with historical market tops and bottoms.</li>
                 <li><strong>Vertical Offset (<i>C</i>):</strong> Re-centers the combined wave envelope along the detrended baseline.</li>
-            </ul>
-
-            <h2>Methodology & Data Pipeline</h2>
-            <p>To establish a rigorous, leakage-free empirical benchmark, the data pipeline was structured using core scientific Python libraries:</p>
-
-            <ul>
-                <li><strong>Data Ingestion (<code>yfinance</code> & <code>pandas</code>):</strong> Historical daily adjusted closing prices for the S&P 500 index (<code>^GSPC</code>) were downloaded using <code>yfinance.download()</code> and cleaned into a time-indexed <code>pandas.DataFrame</code>.</li>
-                <li><strong>Log-Linear Detrending (<code>numpy</code>):</strong> Raw market index prices exhibit exponential long-term secular growth. Using <code>np.log()</code>, prices were transformed to log space. A 1D linear polynomial fit (<code>np.polyfit</code>) estimated the baseline growth trajectory on the training window, allowing the raw series to be detrended into stationary residual oscillations.</li>
-                <li><strong>Non-Linear Optimization (<code>scipy.optimize.curve_fit</code>):</strong> Non-linear least squares regression was applied to optimize the joint parameters (<i>A<sub>i</sub></i>, <i>&omega;<sub>i</sub></i>, <i>&phi;<sub>i</sub></i>, <i>C</i>) for <i>N</i> = 2, 3, 4, and 5 harmonic components on the detrended residual series.</li>
-                <li><strong>Train/Test Chronological Split (75% / 25% Ratio):</strong>
-                    <ul>
-                        <li><strong>Training Period (75%):</strong> Spans historical data up through mid-2012. The model parameters and trend slope were calibrated exclusively on this training window.</li>
-                        <li><strong>Testing/Forecast Period (25%):</strong> Spans <strong>2012 to 2026</strong>. This serves as a pure multi-year out-of-sample extrapolation window with zero look-ahead bias.</li>
-                    </ul>
-                </li>
-                <li><strong>Re-trending & Metric Calculation (<code>scikit-learn.metrics</code>):</strong> Optimized wave predictions were projected forward into the test period, added back to the extrapolated log-linear trend line, and exponentiated back to dollar values (<code>np.exp()</code>). Out-of-sample accuracy was evaluated using <code>mean_squared_error</code> (RMSE), <code>mean_absolute_error</code> (MAE), and <code>r2_score</code>.</li>
             </ul>
 
             <h2>Empirical Benchmarking: <i>N</i> = 2 to <i>N</i> = 5 Components</h2>
@@ -401,7 +377,7 @@
         </main>
 
         <footer>
-            <p>&copy; 2026 Quantitative Wave Mechanics Research by Angshu Nirmegh Biswas. Published via GitHub Pages.</p>
+            <p>&copy; 2026 Quantitative Wave Mechanics Research. Published via GitHub Pages.</p>
         </footer>
     </div>
 
