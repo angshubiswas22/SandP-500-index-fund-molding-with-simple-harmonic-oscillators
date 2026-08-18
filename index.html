@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harmonic Oscillations in Financial Time Series: The 3-Component Sweet Spot</title>
-    <!-- MathJax for rendering equations -->
+    <!-- MathJax for rendering display block equations -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
@@ -76,13 +76,6 @@
             color: var(--accent-color);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             padding-bottom: 0.5rem;
-        }
-
-        h3 {
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #e2e8f0;
         }
 
         p {
@@ -255,14 +248,14 @@
             <span class="tag">Quantitative Finance & Wave Mechanics</span>
             <h1>Molding Simple Harmonic Oscillators: Why 3 Components Hit the Extrapolation Goldilocks Zone</h1>
             <div class="meta">
-                <span>By Quant Research</span> • <span>75:25 Chronological Out-of-Sample Benchmark</span>
+                <span>By Angshu Nirmegh Biswas</span>
             </div>
         </header>
 
         <main>
             <p>Simple Harmonic Motion (SHM) is fundamental to classical mechanics, describing everything from pendulums to molecular vibrations. However, when abstracted into generalized trigonometric series, harmonic oscillators become universal function approximators. By molding an oscillator's underlying parameters—amplitude, angular frequency, phase shift, and offset—a linear combination of simple waves can curve-fit virtually any complex continuous signal.</p>
 
-            <p>In financial time series forecasting, the challenge is not fitting past data; it is <strong>extrapolating into the unknown</strong>. This empirical study evaluates how varying the number of harmonic components ($N = 2, 3, 4, 5$) impacts out-of-sample forecast accuracy when modeling decades of the S&P 500 index under strict zero-data-leakage constraints.</p>
+            <p>In financial time series forecasting, the challenge is not fitting past data; it is <strong>extrapolating into the unknown</strong>. This empirical study evaluates how varying the number of harmonic components (<i>N</i> = 2, 3, 4, 5) impacts out-of-sample forecast accuracy when modeling decades of the S&P 500 index under strict zero-data-leakage constraints.</p>
 
             <h2>The Mathematics of Molding Oscillators</h2>
             <p>A single simple harmonic component is governed by four adjustable weights or parameters:</p>
@@ -271,7 +264,7 @@
                 $$x(t) = A \cos(\omega t + \phi) + C$$
             </div>
 
-            <p>When extending this to an $N$-component harmonic model, we superimpose multiple waves over a baseline trend:</p>
+            <p>When extending this to an <i>N</i>-component harmonic model, we superimpose multiple waves over a baseline trend:</p>
 
             <div class="equation-box">
                 $$y(t) = \sum_{i=1}^{N} A_i \cos(\omega_i t + \phi_i) + C$$
@@ -279,13 +272,13 @@
 
             <p>By optimizing these parameters via non-linear least squares (<code>scipy.optimize.curve_fit</code>), we mold the wave mechanics to match empirical data:</p>
             <ul>
-                <li><strong>Amplitude ($A_i$):</strong> Scales the peak-to-trough magnitude, determining how much power a specific cycle exerts over the price trend.</li>
-                <li><strong>Angular Frequency ($\omega_i$):</strong> Controls the cycle period ($T = \frac{2\pi}{\omega}$). Lower frequencies capture long-term macroeconomic regimes; higher frequencies capture shorter-term oscillations.</li>
-                <li><strong>Phase Shift ($\phi_i$):</strong> Horizontally shifts the wave to align peaks and troughs with historical market tops and bottoms.</li>
-                <li><strong>Vertical Offset ($C$):</strong> Re-centers the combined wave envelope along the detrended baseline.</li>
+                <li><strong>Amplitude (<i>A<sub>i</sub></i>):</strong> Scales the peak-to-trough magnitude, determining how much power a specific cycle exerts over the price trend.</li>
+                <li><strong>Angular Frequency (<i>&omega;<sub>i</sub></i>):</strong> Controls the cycle period (<i>T</i> = 2&pi; / &omega;). Lower frequencies capture long-term macroeconomic regimes; higher frequencies capture shorter-term oscillations.</li>
+                <li><strong>Phase Shift (<i>&phi;<sub>i</sub></i>):</strong> Horizontally shifts the wave to align peaks and troughs with historical market tops and bottoms.</li>
+                <li><strong>Vertical Offset (<i>C</i>):</strong> Re-centers the combined wave envelope along the detrended baseline.</li>
             </ul>
 
-            <h2>Empirical Benchmarking: $N=2$ to $N=5$ Components</h2>
+            <h2>Empirical Benchmarking: <i>N</i> = 2 to <i>N</i> = 5 Components</h2>
             <p>All models were trained on 75% of historical S&P 500 data (log-linear detrended) and tested on the remaining 25% chronological split (Scenario B: pure multi-year extrapolation with zero look-ahead bias).</p>
 
             <div class="table-container">
@@ -352,16 +345,16 @@
 
             <h2>Deconstructing the Performance Breakdown</h2>
 
-            <h3>1. $N=2$ Underfits Macro Volatility (High Bias)</h3>
+            <h3>1. <i>N</i> = 2 Underfits Macro Volatility (High Bias)</h3>
             <p>With only 2 cosine waves, the model lacks sufficient degrees of freedom. While it tracks the exponential drift, it completely ignores medium-term structural cycles, causing the forecast to over-extrapolate upwards and yield an unacceptable Test MAE of <code>$525.37</code>.</p>
 
-            <h3>2. $N=3$ Hits the "Goldilocks Zone"</h3>
-            <p>The 3-component configuration achieves optimal balance ($10$ total parameters). It captures the long-term secular wave, the primary business cycle wave, and an intermediate structural correction wave. Because all three represent persistent low-frequency macro rhythms, their phase relationship remains remarkably stable out-of-sample.</p>
+            <h3>2. <i>N</i> = 3 Hits the "Goldilocks Zone"</h3>
+            <p>The 3-component configuration achieves optimal balance (10 total parameters). It captures the long-term secular wave, the primary business cycle wave, and an intermediate structural correction wave. Because all three represent persistent low-frequency macro rhythms, their phase relationship remains remarkably stable out-of-sample.</p>
 
-            <h3>3. $N \ge 4$ Suffers from Phase Drift Overfitting (High Variance)</h3>
-            <p>Adding a 4th and 5th component introduces higher-frequency waves. Because high-frequency waves cycle rapidly, tiny estimation errors in frequency ($\omega$) compound exponentially over multi-year horizons, causing wave peaks to flip into troughs during extrapolation.</p>
+            <h3>3. <i>N</i> &ge; 4 Suffers from Phase Drift Overfitting (High Variance)</h3>
+            <p>Adding a 4th and 5th component introduces higher-frequency waves. Because high-frequency waves cycle rapidly, tiny estimation errors in frequency (<i>&omega;</i>) compound exponentially over multi-year horizons, causing wave peaks to flip into troughs during extrapolation.</p>
 
-            <h2>Comparative Visual Gallery ($N=2, 4, 5$)</h2>
+            <h2>Comparative Visual Gallery (<i>N</i> = 2, 4, 5)</h2>
 
             <div class="img-grid">
                 <figure>
