@@ -231,6 +231,11 @@
                 grid-template-columns: 1fr;
             }
         }
+            
+        figure.flowchart-card {
+            max-width: 650px;    
+            margin: 2rem auto;      
+        }
     </style>
 </head>
 <body>
@@ -285,18 +290,18 @@
                 <li><strong>Exponential Price Re-trending (<code>numpy</code>):</strong> Optimized wave predictions were projected forward into the test period, re-combined with the trend line, and exponentiated back to dollar values: \(\hat{P}(t) = \exp(T(t) + \hat{R}(t))\).</li>
                 <li><strong>Statistical Metric Computation (<code>scikit-learn</code>):</strong> Out-of-sample accuracy was evaluated against ground-truth market prices using Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Coefficient of Determination (\(R^2\)).</li>
             </ul>
-
-            <figure>
-                <img src="data_pipeline_flowchart.png" alt="Data Pipeline Flowchart">
-                <figcaption><strong>Figure 2: Data Processing Pipeline.</strong> End-to-end data transformation pipeline from raw index ingestion through exponential re-trending to evaluation metrics.</figcaption>
+            
+                  <figure class="flowchart-card">
+                    <img src="data_pipeline_flowchart.png" alt="Data Pipeline Flowchart">
+                    <figcaption><strong>Figure 1: Data Processing Pipeline.</strong> End-to-end data transformation pipeline from raw index ingestion through exponential re-trending to evaluation metrics.</figcaption>
             </figure>
             <!-- SECTION 1: RESEARCH METHODOLOGY -->
             <h2>Research Methodology</h2>
             <p>To evaluate the multi-year extrapolation properties of harmonic oscillators without empirical contamination, we established a strict six-step quantitative research design. The methodology strictly enforces zero data leakage between training calibration and testing extrapolation horizons.</p>
-
-            <figure>
+            <!-- Methodology Flowchart -->
+            <figure class="flowchart-card">
                 <img src="methodology_flowchart.png" alt="Research Methodology Flowchart">
-                <figcaption><strong>Figure 1: Research Methodology Architecture.</strong> Systematic 6-step framework for model calibration, extrapolation, benchmarking, and champion model identification.</figcaption>
+                <figcaption><strong>Figure 2: Research Methodology Architecture.</strong> Systematic 6-step framework for model calibration, extrapolation, benchmarking, and champion model identification.</figcaption>
             </figure>
 
             <h2>Empirical Benchmarking: <i>N</i> = 2 to <i>N</i> = 5 Components</h2>
